@@ -28,15 +28,15 @@ public class EaglerChannelWrapper extends ChannelWrapper {
 		getHandle().pipeline().get(EaglerMinecraftEncoder.class).setProtocol(protocol);
 		getHandle().pipeline().get(EaglerMinecraftDecoder.class).setProtocol(protocol);
 	}
-
+	
 	public void setVersion(int protocol) {
 		getHandle().pipeline().get(EaglerMinecraftEncoder.class).setProtocolVersion(protocol);
 		getHandle().pipeline().get(EaglerMinecraftDecoder.class).setProtocolVersion(protocol);
 	}
 
 	public Protocol getEncodeProtocol() {
-		EaglerBungeeProtocol eaglerProtocol = getHandle().pipeline().get(EaglerMinecraftEncoder.class).getProtocol();
-		switch (eaglerProtocol) {
+		EaglerBungeeProtocol eaglerProtocol = this.getHandle().pipeline().get(EaglerMinecraftEncoder.class).getProtocol();
+		switch(eaglerProtocol) {
 			case GAME:
 				return Protocol.GAME;
 			case HANDSHAKE:
@@ -45,8 +45,9 @@ public class EaglerChannelWrapper extends ChannelWrapper {
 				return Protocol.LOGIN;
 			case STATUS:
 				return Protocol.STATUS;
+			default:
+				return null;
 		}
-		return null;
 	}
 	
 	public void close(Object o) {
